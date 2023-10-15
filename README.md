@@ -15,7 +15,7 @@ composer update
 ```
 php artisan key:generate
 ```
-> Генерируем jwt ключ
+> Генерируем JWT ключ
 ```
 php artisan jwt:secret
 ```
