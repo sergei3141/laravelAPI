@@ -9,7 +9,8 @@ cp .env.example .env
 ```
 > Устанавливаем зависимости:
 ```
-composer update
+composer install --ignore-platform-reqs --no-dev
+
 ```
 > Генерируем ключ Laravel
 ```
