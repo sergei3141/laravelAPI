@@ -2,7 +2,7 @@
 
 
 ### Первоначальная настройка Laravel проекта
-> Копируем .env.example в .env
+> Копируем конфигурационный файл .env.example в .env
 
 ```
 cp .env.example .env
