@@ -12,12 +12,17 @@ cp .env.example .env
 composer install --ignore-platform-reqs --no-dev
 
 ```
-> Генерируем ключ Laravel
+> Генерируем ключ Laravel:
 ```
 php artisan key:generate
 ```
-> Генерируем JWT ключ
+> Генерируем JWT ключ:
 ```
 php artisan jwt:secret
 ```
 ---
+> Даём права на запись:
+```
+sudo chown -R www-data.www-data /var/www/laravel-api/storage
+sudo chown -R www-data.www-data /var/www/laravel-api/bootstrap/cache
+```
