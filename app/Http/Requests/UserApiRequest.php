@@ -18,6 +18,8 @@ class UserApiRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'role' => '',
+            'phone' => '',
+            'active' => '',
         ];
     }
 
@@ -29,7 +31,7 @@ class UserApiRequest extends FormRequest
             'email.email' => 'Введите корректный адрес электронной почты.',
             'email.unique' => 'Этот адрес электронной почты уже занят.',
             'password.required' => 'Поле "Пароль" обязательно для заполнения.',
-            'password.min' => 'Пароль должен содержать минимум 8 символов.',
+            'password.min' => 'Пароль должен содержать минимум 6 символов.',
         ];
     }
 }

@@ -12,11 +12,7 @@ class UserController extends Controller
 {
     public function index(): JsonResponse
     {
-        // role 'admin'`
         $users = User::paginate(10);
-
-        // role 'user'
-        // User::whereRole('user')->paginate(10)
 
         return response()->json([
             'data' => $users->all(),
@@ -37,7 +33,7 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function update(Request $request, User $user): JsonResponse
+    public function update(User $user, Request $request): JsonResponse
     {
         $user->update($request->all());
 
