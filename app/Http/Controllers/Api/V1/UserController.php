@@ -46,4 +46,13 @@ class UserController extends Controller
 
         return response()->json(['success' => true, 'status' => 200]);
     }
+
+    public function getGroups(User $user): JsonResponse
+    {
+        $groups = $user->groups;
+
+        return response()->json($groups ?
+            ['status' => 200, 'data' => $groups] :
+            ['status' => 200, 'data' => []]);
+    }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -19,23 +21,23 @@ class GroupController extends Controller
         return response()->json($groups);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validate = $request->validate([
-            'name' => ['required', 'unique:groups'],
-            'based_on' => ['required']
+            'name' => ['required'],
+            'group_num' => ['required', 'unique:groups'],
+        ], [
+            'name.required' => 'Введите имя',
+            'group_num.required' => 'Введите номер группы',
+            'group_num.unique' => 'Такая группа уже существует',
         ]);
 
-        if ($validate) {
-            $group = Group::create([
-                'name' => $request->name,
-                'based_on' => $request->based_on,
-                'students_id' => json_encode($request->students_id),
-            ]);
+        $group = Group::create([
+            'name' => $request->name,
+            'group_num' => $request->group_num,
+        ]);
 
-            return response()->json($group);
-        }
-
+        return response()->json($group);
     }
 
     public function show(Group $group)
@@ -43,27 +45,34 @@ class GroupController extends Controller
         return response()->json($group);
     }
 
-    public function destroy(Group $group)
+    public function update(Request $request, Group $group): JsonResponse
     {
-        $group->delete();
-
-        return response()->json(['status' => 200]);
-    }
-
-    public function restore(int $id)
-    {
-//        Group::withTrashed()->restore();
-
-        Group::withTrashed()->where('id', $id)->restore();
-
-        return response()->json(['status' => 200]);
-    }
-
-    public function update(Request $request, Group $group)
-    {
-        dd($request->all());
         $group->update($request->all());
 
         return response()->json($group);
     }
+
+    public function destroy(Group $group): JsonResponse
+    {
+        $group->delete();
+
+        return response()->json(['status' => 200, 'message' => 'Deleted']);
+    }
+
+    public function restore(int $id): JsonResponse
+    {
+        Group::withTrashed()->where('id', $id)->restore();
+
+        return response()->json(['status' => 200, 'message' => 'Restored']);
+    }
+
+    public function getUsers(Group $group): JsonResponse
+    {
+        $users = $group->users;
+
+        return response()->json($users ?
+            ['status' => 200, 'data' => $users] :
+            ['status' => 200, 'data' => []]);
+    }
+
 }

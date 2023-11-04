@@ -15,49 +15,46 @@ class GroupSeeder extends Seeder
     public function run(): void
     {
         $group = Group::create([
-            'name' => 'Javascript group',
+            'name' => 'Первая группа',
             'group_num' => 1,
             'course_id' => 1,
             'active' => true,
         ]);
 
-        // добавляем юзеров в текущаю группу
-        $group->users()->attach([2, 3]);
-
+        $group->users()->attach([1, 2]);
 
         $group = Group::create([
-            'name' => 'Javascript group',
+            'name' => 'Вторая группа',
             'group_num' => 2,
             'course_id' => 1,
             'active' => true,
         ]);
 
-        $group->users()->attach([4]);
+        $group->users()->attach([3]);
 
         $group = Group::create([
-            'name' => 'React group',
-            'group_num' => 1,
+            'name' => 'Третья группа',
+            'group_num' => 3,
             'course_id' => 2,
             'active' => true,
         ]);
 
-        $group->users()->attach([5]);
+        $group->users()->attach([1, 2, 3]);
 
-        $group = Group::create([
-            'name' => 'React group',
-            'group_num' => 2,
-            'course_id' => 2,
-            'active' => true,
-        ]);
-
-        $group->users()->attach([6]);
-
-        $group = Group::create([
-            'name' => 'Vue group',
-            'group_num' => 1,
-            'course_id' => 3,
-            'active' => false,
-        ]);
+//        $group = Group::create([
+//            'name' => 'Четвёртая группа',
+//            'group_num' => 4,
+//            'course_id' => 2,
+//            'active' => true,
+//        ]);
+//
+//
+//        $group = Group::create([
+//            'name' => 'Пятая группа',
+//            'group_num' => 5,
+//            'course_id' => 3,
+//            'active' => false,
+//        ]);
 
     }
 }

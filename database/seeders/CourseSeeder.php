@@ -31,7 +31,7 @@ class CourseSeeder extends Seeder
         Course::create([
             'name' => 'React',
             'lesson_num' => 1,
-            'theme' => 'Компоненты',
+            'theme' => 'Компоненты react',
             'cw' => json_encode([
                 1, 2, 3, 4
             ]),
@@ -41,5 +41,20 @@ class CourseSeeder extends Seeder
             'pptx' => '/files/present_reacT.pptx',
             'docx' => '/files/present_react.docx'
         ]);
+
+        Course::create([
+            'name' => 'Vue',
+            'lesson_num' => 1,
+            'theme' => 'Компоненты vue',
+            'cw' => json_encode([
+                1, 2, 3, 4
+            ]),
+            'hw' => json_encode([
+                4, 5, 6, 7
+            ]),
+            'pptx' => '/files/present_reacT.pptx',
+            'docx' => '/files/present_react.docx'
+        ]);
+
     }
 }

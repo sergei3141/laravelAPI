@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('themes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('group_num')->comment('Нумерация группы');
-            $table->unsignedBigInteger('course_id')->nullable()->comment('Базирование с таблицей courses');
+            $table->integer('course_id');
             $table->string('name');
-            $table->boolean('active')->default(true);
-            $table->softDeletes();
+            $table->integer('lesson_num');
+            $table->string('tasks')->nullable()->comment('HW / CW');
+            $table->string('pptx')->nullable();
+            $table->string('docx')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('themes');
     }
 };

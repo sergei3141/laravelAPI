@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -21,11 +21,19 @@ class Group extends Model
 
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at',
+        'pivot',
     ];
 
+      // Многое ко многим
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
+        // Один ко многим
+//        public function users(): HasMany
+//        {
+//            return $this->hasMany(User::class, 'group_id', 'id');
+//        }
 }

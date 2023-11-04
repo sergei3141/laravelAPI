@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\V1\CourseController;
 use App\Http\Controllers\Api\V1\GroupController;
+use App\Http\Controllers\Api\V1\ThemeController;
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,16 +33,31 @@ Route::prefix('v1')->name('v1')->middleware('jwt:admin,user')->group(function() 
     Route::post('users', [UserController::class, 'store'])->middleware('jwt:admin')->name('users.store');
     Route::post('users/{user}', [UserController::class, 'update'])->middleware('jwt:admin')->name('users.update');
     Route::delete('users/{user}', [UserController::class, 'destroy'])->middleware('jwt:admin')->name('users.delete');
+    // User Group
+    Route::get('users/{user}/groups', [UserController::class, 'getGroups'])->name('users.groups');
 
     // Groups
     Route::middleware('jwt:admin')->group(function() {
         Route::get('groups', [GroupController::class, 'index'])->name('groups.index');
         Route::post('groups', [GroupController::class, 'store'])->name('groups.store');
         Route::get('groups/{group}', [GroupController::class, 'show'])->name('groups.show');
-        Route::delete('groups/{group}', [GroupController::class, 'destroy'])->middleware('jwt:admin')->name('groups.delete');
-        // для отправки put необходимо не через form-data а через x-www-form-urlencoded
-        Route::post('groups/restore/{id}', [GroupController::class, 'restore'])->name('groups.restore');
         Route::post('groups/{group}', [GroupController::class, 'update'])->middleware('jwt:admin')->name('groups.update');
+        Route::delete('groups/{group}', [GroupController::class, 'destroy'])->middleware('jwt:admin')->name('groups.delete');
+        Route::post('groups/restore/{id}', [GroupController::class, 'restore'])->name('groups.restore');
+        // Group users
+        Route::get('groups/{group}/users', [GroupController::class, 'getUsers'])->name('groups.users');
+
+        // Themes
+        Route::get('themes', [ThemeController::class, 'index'])->name('themes.index');
+        Route::post('themes', [ThemeController::class, 'store'])->name('themes.store');
+        Route::get('themes/{theme}', [ThemeController::class, 'show'])->name('themes.show');
+        Route::post('themes/{theme}', [ThemeController::class, 'update'])->middleware('jwt:admin')->name('themes.update');
+        Route::delete('themes/{theme}', [ThemeController::class, 'destroy'])->middleware('jwt:admin')->name('themes.delete');
+        // Get Theme Course
+        Route::get('themes/{theme}/course', [ThemeController::class, 'getCourse'])->name('themes.course');
+
+        // Courses
+        Route::get('courses/{course}/themes', [CourseController::class, 'getThemes'])->name('corses.themes');
 
     });
 

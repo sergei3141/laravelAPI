@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,7 +39,8 @@ class User extends Authenticatable implements JWTSubject
 //        'remember_token',
         'email_verified_at',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'pivot',
     ];
 
     /**
@@ -50,11 +52,17 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
+    // Многое ко многим
     public function groups(): BelongsToMany
     {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Group::class)->withTimestamps();
     }
+
+    // Один ко многим
+//    public function group(): BelongsTo
+//    {
+//        return $this->belongsTo(Group::class, 'group_id', 'id');
+//    }
 
     public function getJWTIdentifier()
     {

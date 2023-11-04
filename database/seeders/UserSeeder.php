@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Petya',
+//            'group_id' => 1,
             'email' => 'petya@gmail.com',
             'password' => '123456',
             'phone' => '+999933333'
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Kristi',
+//            'group_id' => 1,
             'email' => 'kristi@gmail.com',
             'password' => '123456',
             'phone' => '+9994444'
@@ -37,6 +39,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Jhon',
+//            'group_id' => 2,
             'email' => 'jhon@gmail.com',
             'password' => '123456',
             'phone' => '+999466666'
@@ -44,6 +47,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Antony',
+//            'group_id' => 3,
             'email' => 'antony@gmail.com',
             'password' => '123456',
             'phone' => '+999423234'
@@ -51,6 +55,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Arnold',
+//            'group_id' => 3,
             'email' => 'arnold@gmail.com',
             'password' => '123456',
             'phone' => '+9994237788'
