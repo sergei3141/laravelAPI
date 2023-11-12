@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('themes', function (Blueprint $table) {
+        Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
-            $table->string('theme');
-            $table->integer('lesson_num');
-            $table->string('hw')->nullable();
-            $table->string('cw')->nullable();
-            $table->string('pptx')->nullable();
-            $table->string('docx')->nullable();
+            $table->integer('group_id');
+            $table->string('base');
+            $table->string('group');
+            $table->integer('lesson_num')->nullable();
+            $table->text('theme');
+            $table->text('marks');
+            $table->text('cw');
+            $table->text('hw');
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('themes');
+        //
     }
 };

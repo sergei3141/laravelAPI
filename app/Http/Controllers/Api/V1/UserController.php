@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index(): JsonResponse
     {
-        $users = User::paginate(10);
+        $users = User::paginate(1000);
 
         return response()->json([
             'data' => $users->all(),
@@ -21,11 +21,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(UserApiRequest $userApiRequest): JsonResponse
-    {
-        $user = User::create($userApiRequest->validated());
-
-        return response()->json($user);
+    public function store(Request $request): JsonResponse
+    {   
+        $user = User::create($request->all());   /*->validated()*/
+        
+        return response()->json(['status' => 200, 'data' => $user]);
     }
 
     public function show(User $user): JsonResponse
@@ -36,8 +36,7 @@ class UserController extends Controller
     public function update(User $user, Request $request): JsonResponse
     {
         $user->update($request->all());
-
-        return response()->json($user);
+        return response()->json(['status' => 200, 'data' => $user]);
     }
 
     public function destroy(User $user): JsonResponse
@@ -54,5 +53,11 @@ class UserController extends Controller
         return response()->json($groups ?
             ['status' => 200, 'data' => $groups] :
             ['status' => 200, 'data' => []]);
+    }
+
+    public function updateTask(User $user, Request $request): JsonResponse
+    {  
+        $user->update($request->only('tasks_completed'));
+        return response()->json($user);
     }
 }

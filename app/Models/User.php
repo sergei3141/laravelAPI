@@ -26,7 +26,9 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'role',
         'password',
-        'active'
+        'active',
+        'tasks_completed',
+        'reset'
     ];
 
     /**
@@ -41,6 +43,7 @@ class User extends Authenticatable implements JWTSubject
         'created_at',
         'updated_at',
         'pivot',
+        'reset'
     ];
 
     /**

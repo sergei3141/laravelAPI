@@ -14,7 +14,6 @@ class Group extends Model
 
     protected $fillable = [
         'name',
-        'group_num',
         'course_id',
         'active'
     ];
@@ -26,14 +25,16 @@ class Group extends Model
         'pivot',
     ];
 
-      // Многое ко многим
+      // Многое ко многим (Каждая группа имеет много студентов и каждый студент может иметь несолько групп )
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
-        // Один ко многим
-//        public function users(): HasMany
-//        {
-//            return $this->hasMany(User::class, 'group_id', 'id');
-//        }
+
+
+  //      Один ко многим (Каждая группа имеет много логов уроков)
+       public function lessons(): HasMany
+       {
+           return $this->hasMany(Lesson::class, 'group_id', 'id');
+       }
 }

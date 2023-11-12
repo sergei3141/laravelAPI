@@ -11,7 +11,7 @@ class AuthController extends Controller
     {
 //        Изменить на норм валидацию
         try {
-            $credentials = request(['email', 'password']);
+            $credentials = request(['phone', 'password']);
 
             if (! $token = auth()->attempt($credentials)) {
                 return response()->json(['error' => 'Unauthorized'], 401);

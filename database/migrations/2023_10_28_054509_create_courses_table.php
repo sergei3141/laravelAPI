@@ -14,13 +14,8 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('lesson_num');
-            $table->text('theme');
-            $table->text('cw')->nullable();
-            $table->text('hw')->nullable();
-            $table->text('pptx')->nullable();
-            $table->text('docx')->nullable();
             $table->timestamps();
+            $table->integer('lesson_num')->nullable();  
         });
     }
 

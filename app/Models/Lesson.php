@@ -5,25 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Theme extends Model
+class Lesson extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'course_id',
-        'theme',
+        'base',
+        'group_id',
+        'marks',
         'lesson_num',
         'hw',
         'cw',
-        'pptx',
-        'docx',
+        'group',
+        'theme',
+    ];
+
+    protected $hidden = [
+        'updated_at',
     ];
 
     public function course(): BelongsTo
     {
-        return $this->belongsTo(Course::class, 'course_id', 'id');
+        return $this->belongsTo(Group::class, 'lesson_id', 'id');
     }
+
 
 }

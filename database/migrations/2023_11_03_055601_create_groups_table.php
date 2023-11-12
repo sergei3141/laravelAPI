@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('group_num')->comment('Нумерация группы');
             $table->unsignedBigInteger('course_id')->nullable()->comment('Базирование с таблицей courses');
             $table->string('name');
             $table->boolean('active')->default(true);

@@ -12,32 +12,45 @@ class GroupController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->based_on) {
-            $groups = Group::where('based_on', $request->based_on)->get();
+        if($request->id) {
+            $groups = Group::where('id', $request->id)->get();
         } else {
             $groups = Group::all();
         }
+        return response()->json($groups);
+    }
 
+    public function getGroupsByCourseId(Request $request)
+    {
+        if($request->course_id) {
+            $groups = Group::where('course_id', $request->course_id)->get();
+        } else {
+            $groups = Group::all();
+        }
         return response()->json($groups);
     }
 
     public function store(Request $request): JsonResponse
     {
-        $validate = $request->validate([
-            'name' => ['required'],
-            'group_num' => ['required', 'unique:groups'],
-        ], [
-            'name.required' => 'Введите имя',
-            'group_num.required' => 'Введите номер группы',
-            'group_num.unique' => 'Такая группа уже существует',
-        ]);
-
+        // $validate = $request->validate([
+        //     'name' => ['required'],
+        //     'group_num' => ['required', 'unique:groups'],
+        // ], [
+        //     'name.required' => 'Введите имя',
+        //     'group_num.required' => 'Введите номер группы',
+        //     'group_num.unique' => 'Такая группа уже существует',
+        // ]);
+      
         $group = Group::create([
             'name' => $request->name,
             'group_num' => $request->group_num,
+            'course_id' => $request->course_id,
         ]);
+//dd($request->users_id);
+$parts = explode(',', $request->users_id);
+        $group =  $group->users()->attach($parts);
 
-        return response()->json($group);
+        return response()->json(['status' => 200, 'data' => $group]);;
     }
 
     public function show(Group $group)
@@ -72,6 +85,15 @@ class GroupController extends Controller
 
         return response()->json($users ?
             ['status' => 200, 'data' => $users] :
+            ['status' => 200, 'data' => []]);
+    }
+
+    public function getLessons(Group $group): JsonResponse
+    {
+        $lessons = $group->lessons;
+
+        return response()->json($lessons ?
+            ['status' => 200, 'data' => $lessons] :
             ['status' => 200, 'data' => []]);
     }
 
