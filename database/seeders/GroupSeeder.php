@@ -17,6 +17,7 @@ class GroupSeeder extends Seeder
         $group = Group::create([
             'name' => 'JavaScript_1',
             'course_id' => 1,
+            'price'=>8000000
         ]);
 
         $group->users()->attach([1, 2]);
@@ -24,6 +25,7 @@ class GroupSeeder extends Seeder
         $group = Group::create([
             'name' => 'JavaScript_2',
             'course_id' => 1,
+            'price'=>8000000
         ]);
 
         $group->users()->attach([3]);
@@ -31,6 +33,7 @@ class GroupSeeder extends Seeder
         $group = Group::create([
             'name' => 'React_1',
             'course_id' => 2,
+            'price'=>5000000
         ]);
 
         $group->users()->attach([1, 2, 3]);

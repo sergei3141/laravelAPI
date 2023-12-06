@@ -15,7 +15,8 @@ class Group extends Model
     protected $fillable = [
         'name',
         'course_id',
-        'active'
+        'active',
+        'price',
     ];
 
     protected $hidden = [

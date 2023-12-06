@@ -45,8 +45,9 @@ class GroupController extends Controller
             'name' => $request->name,
             'group_num' => $request->group_num,
             'course_id' => $request->course_id,
+            'price' => $request->price,
         ]);
-//dd($request->users_id);
+
 $parts = explode(',', $request->users_id);
         $group =  $group->users()->attach($parts);
 
@@ -83,8 +84,14 @@ $parts = explode(',', $request->users_id);
     {
         $users = $group->users;
 
-        return response()->json($users ?
-            ['status' => 200, 'data' => $users] :
+        $subset = $users->map(function ($usr) {
+            return collect($usr->toArray())
+                ->only(['id', 'name', 'role', 'tasks_completed'])
+                ->all();
+        });
+
+        return response()->json($subset ?
+            ['status' => 200, 'data' => $subset] :
             ['status' => 200, 'data' => []]);
     }
 

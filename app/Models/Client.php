@@ -5,22 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Table extends Model
+class Client extends Model
 {
     use HasFactory;
 
 protected $fillable = [
     'name',
-    'lesson_num',
-    'open',
-    'mon',
-    'tue',
-    'wed',
-    'thu',
-    'fri',
-    'sat',
-    'sun',
-    'base',
+    'phone',
+    'ip'
 ];
 
 protected $hidden = [

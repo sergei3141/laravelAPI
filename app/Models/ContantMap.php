@@ -5,22 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Table extends Model
+class Contantmap extends Model
 {
     use HasFactory;
 
 protected $fillable = [
-    'name',
-    'lesson_num',
-    'open',
-    'mon',
-    'tue',
-    'wed',
-    'thu',
-    'fri',
-    'sat',
-    'sun',
-    'base',
+    'mapUrl',
+    'adressTitle',
+    'adressSubtitle1',
+    'adressSubtitle2',
 ];
 
 protected $hidden = [

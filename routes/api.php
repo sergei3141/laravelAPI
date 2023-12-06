@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\V1\ThemeController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\LessonController;
 use App\Http\Controllers\Api\V1\TableController;
+use App\Http\Controllers\Api\V1\ExerciseController;
+use App\Http\Controllers\Api\V1\ClientController;
+use App\Http\Controllers\Api\V1\ContantmapController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,19 +29,26 @@ Route::prefix('auth')->name('auth')->middleware('jwt:admin,student')->group(func
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
     Route::post('me', [AuthController::class, 'me'])->name('me');
-
-
 });
 
 Route::prefix('v1')->name('v1')->middleware('jwt:admin,student')->group(function() {
     // Table
     Route::get('table', [TableController::class, 'index'])->name('table.index')->withoutMiddleware('jwt:admin,student');
     Route::post('table', [TableController::class, 'store'])->name('table.store');
+    Route::post('table/{table}', [TableController::class, 'update'])->middleware('jwt:admin')->name('table.update');
     Route::delete('table/{table}', [TableController::class, 'destroy'])->name('table.destroy');
-
+    //Clients
+    Route::get('clients', [ClientController::class, 'index'])->middleware('jwt:admin')->name('client.index');
+    Route::post('clients', [ClientController::class, 'store'])->withoutMiddleware('jwt:admin,student')->name('client.store');
+    Route::delete('clients/{client}', [ClientController::class, 'destroy'])->withoutMiddleware('jwt:admin,student')->name('client.destroy');
+    //ContentMap
+    Route::get('contantmap', [ContantmapController::class, 'index'])->withoutMiddleware('jwt:admin,student')->name('contantmap.index');
+    Route::post('contantmap/{contantmap}', [ContantmapController::class, 'update'])->middleware('jwt:admin')->name('contantmap.update');
     // Users
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users/adminOnly', [UserController::class, 'adminIndex'])->middleware('jwt:admin')->name('users.adminIndex');
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('users/{user}/adminOnly', [UserController::class, 'adminShow'])->middleware('jwt:admin')->name('users.adminShow');
     Route::post('users', [UserController::class, 'store'])->middleware('jwt:admin')->name('users.store');
     Route::post('users/{user}', [UserController::class, 'update'])->middleware('jwt:admin')->name('users.update');
     Route::post('users/{user}/task_completed', [UserController::class, 'updateTask'])->name('users.updateTask');
@@ -72,13 +82,23 @@ Route::prefix('v1')->name('v1')->middleware('jwt:admin,student')->group(function
         // Courses
         Route::get('courses/{course}/themes', [CourseController::class, 'getThemes'])->name('corses.themes');
         Route::get('courses', [CourseController::class, 'index'])->name('corses.index');
-        Route::get('courses/{course}', [CourseController::class, 'getCourse'])->name('corses.getCourses');
+        Route::get('courses/{course}', [CourseController::class, 'show'])->name('corses.getCourse');
+        Route::post('courses', [CourseController::class, 'store'])->middleware('jwt:admin')->name('corses.store');
+        Route::post('courses/{course}', [CourseController::class, 'update'])->middleware('jwt:admin')->name('corses.update');
+        Route::delete('courses/{course}', [CourseController::class, 'destroy'])->middleware('jwt:admin')->name('corses.destroy');
 
         // lessons
         Route::get('lessons', [LessonController::class,'index'])->name('lessons.index');
         Route::post('lessons', [LessonController::class,'store'])->middleware('jwt:admin')->name('lessons.store');
         Route::delete('lessons/{lesson}', [LessonController::class,'destroy'])->middleware('jwt:admin')->name('lessons.destroy');
         Route::post('lessons/{lesson}', [LessonController::class,'update'])->middleware('jwt:admin')->name('lessons.update');
+
+        // exercises
+        Route::get('exercises', [ExerciseController::class,'index'])->name('exercises.index');
+        Route::get('exercises/{exercise}', [ExerciseController::class,'show'])->name('exercises.show');
+        Route::post('exercises', [ExerciseController::class,'store'])->middleware('jwt:admin')->name('exercises.store');
+        Route::delete('exercises/{exercise}', [ExerciseController::class,'destroy'])->middleware('jwt:admin')->name('exercises.destroy');
+        Route::post('exercises/{exercise}', [ExerciseController::class,'update'])->middleware('jwt:admin')->name('exercises.update');
     }
 );
 

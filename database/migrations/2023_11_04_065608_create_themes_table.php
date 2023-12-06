@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
             $table->integer('course_id');
-            $table->string('theme');
-            $table->integer('lesson_num');
+            $table->string('theme')->nullable();
+            $table->integer('lesson_num')->nullable();
             $table->string('hw')->nullable();
             $table->string('cw')->nullable();
             $table->string('pptx')->nullable();

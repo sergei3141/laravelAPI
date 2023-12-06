@@ -10,6 +10,10 @@ class Course extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+    ];
+
 
     // Один ко многим
     public function themes(): HasMany

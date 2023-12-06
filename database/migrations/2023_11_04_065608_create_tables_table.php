@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->integer('lesson_num');
-            $table->string('name');
+            $table->string('base')->nullable();
+            $table->string('open')->nullable();
+            $table->integer('lesson_num')->nullable();
+            $table->string('name')->nullable();
             $table->string('mon')->nullable();
             $table->string('tue')->nullable();
             $table->string('wed')->nullable();

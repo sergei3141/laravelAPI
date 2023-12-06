@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class TableController extends Controller
 {
     public function index()
     {
         $table = Table::all();
+        
         return response()->json(['status' => 200, 'data' => $table]);
     }
 
@@ -24,6 +26,12 @@ class TableController extends Controller
     {
         $table->delete();
         return response()->json(['status'=>200]);
+    }
+
+    public function update(Table $table, Request $request): JsonResponse
+    {
+        $table->update($request->all());
+        return response()->json(['status' => 200, 'data' => $table]);
     }
 
 }

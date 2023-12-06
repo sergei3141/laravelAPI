@@ -43,7 +43,8 @@ class ThemeController extends Controller
      */
     public function update(Request $request, Theme $theme)
     {
-        //
+        $theme->update($request->all());
+        return response()->json(['status' => 200, 'data' => $theme]);
     }
 
     /**
@@ -51,7 +52,9 @@ class ThemeController extends Controller
      */
     public function destroy(Theme $theme)
     {
-        //
+        $theme->delete();
+
+        return response()->json(['success' => true, 'status' => 200]);
     }
 
     public function getCourse(Theme $theme)

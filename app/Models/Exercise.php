@@ -5,22 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Table extends Model
+class Exercise extends Model
 {
     use HasFactory;
 
 protected $fillable = [
-    'name',
-    'lesson_num',
-    'open',
-    'mon',
-    'tue',
-    'wed',
-    'thu',
-    'fri',
-    'sat',
-    'sun',
-    'base',
+    'tag',
+    'rank',
+    'link',
+    'tests',
+    'testKeys',
+    'defaultFunction',
+    'description',
 ];
 
 protected $hidden = [
