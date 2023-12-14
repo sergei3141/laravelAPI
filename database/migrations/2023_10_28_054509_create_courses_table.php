@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
             $table->integer('lesson_num')->nullable();  
+            $table->integer('price')->nullable(); 
         });
     }
 
