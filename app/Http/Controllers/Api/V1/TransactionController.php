@@ -14,13 +14,12 @@ class TransactionController extends Controller
         $perPage = request()->input('perPage');
     
         $transactions = Transaction::query();
-
     
-        // Получаем общее количество 
+        // Получаем общее количество
         $totalCount = $transactions->count();
     
-        // Применяем пагинацию
-        $transactions = $transactions->paginate($perPage ?: 2000);
+        // Применяем пагинацию и сортировку в обратном порядке
+        $transactions = $transactions->latest()->paginate($perPage ?: 2000);
     
         return response()->json([
             'data' => $transactions->items(),
