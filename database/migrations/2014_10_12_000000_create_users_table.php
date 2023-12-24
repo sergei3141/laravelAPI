@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone');
             $table->boolean('active')->default(true);
-            $table->text('tasks_completed')->nullable();
+            $table->string('tasks_completed')->default('0');
             $table->string('reset')->nullable();
             $table->string('parents')->nullable();
             $table->string('parents_phone')->nullable();

@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\TableController;
 use App\Http\Controllers\Api\V1\ExerciseController;
 use App\Http\Controllers\Api\V1\ClientController;
 use App\Http\Controllers\Api\V1\ContantmapController;
+use App\Http\Controllers\Api\V1\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,6 +100,10 @@ Route::prefix('v1')->name('v1')->middleware('jwt:admin,student')->group(function
         Route::post('exercises', [ExerciseController::class,'store'])->middleware('jwt:admin')->name('exercises.store');
         Route::delete('exercises/{exercise}', [ExerciseController::class,'destroy'])->middleware('jwt:admin')->name('exercises.destroy');
         Route::post('exercises/{exercise}', [ExerciseController::class,'update'])->middleware('jwt:admin')->name('exercises.update');
+
+        // transactions
+        Route::get('transaction', [TransactionController::class,'index'])->middleware('jwt:admin')->name('transactions.index');
+        Route::post('transaction', [TransactionController::class,'store'])->middleware('jwt:admin')->name('transactions.store');
     }
 );
 

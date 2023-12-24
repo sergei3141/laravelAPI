@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    
-    public function index(): JsonResponse
+   public function index(): JsonResponse
     {
         $active = request()->input('active');
-        $users = User::paginate(1000);
+        $perPage = request()->input('perPage');
+        $users = User::paginate($perPage ?: 2000);
 
         if ($active == 1){
         $activeUsers = $users->filter(function ($user) {
@@ -26,7 +26,6 @@ class UserController extends Controller
             });
         };
 
-      
         $subset = $activeUsers->map(function ($usr) {
             return collect($usr->toArray())
                 ->only(['id', 'name', 'role', 'tasks_completed'])
@@ -40,41 +39,70 @@ class UserController extends Controller
         ]);
     }
 
+
+    // public function adminIndex(): JsonResponse
+    // {
+    // $active = request()->input('active');
+    // $sort = request()->input('sort');
+    // $perPage = request()->input('perPage');
+    // $users = User::paginate($perPage ?: 2000);
+
+    // if ($active == 1){
+    //     $activeUsers = $users->filter(function ($user) {
+    //         return $user['active'];
+    //     });
+    // }else{
+    //     $activeUsers = $users->filter(function ($user) {
+    //         return $user;
+    //     });
+    // }
+
+    // if ($sort == 'asc') {
+    //     $sortedUsers = $activeUsers->sortBy('balance');
+    // } elseif ($sort == 'desc') {
+    //     $sortedUsers = $activeUsers->sortByDesc('balance');
+    // } else {
+    //     $sortedUsers = $activeUsers;
+    // }
+    //     return response()->json([
+    //         'data' => $sortedUsers,
+    //         'currentPage' => $users->currentPage(),
+    //         'lastPage' => $users->lastPage()
+    //     ]);
+    // }
+
     public function adminIndex(): JsonResponse
     {
         $active = request()->input('active');
-        $users = User::paginate(1000);
-
-        if ($active == 1){
-        $activeUsers = $users->filter(function ($user) {
-            return $user['active'];
-            });
-        }else{
-        $activeUsers = $users->filter(function ($user) {
-            return $user;
-            });
-        };
-
-
+        $sort = request()->input('sort');
+        $perPage = request()->input('perPage');
+    
+        $users = User::query();
+    
+        if ($active == 1) {
+            $users->where('active', true);
+        }
+    
+        if ($sort == 'asc') {
+            $users->orderBy('balance', 'asc');
+        } elseif ($sort == 'desc') {
+            $users->orderBy('balance', 'desc');
+        }
+    
+        // Получаем общее количество пользователей
+        $totalCount = $users->count();
+    
+        // Применяем пагинацию
+        $users = $users->paginate($perPage ?: 2000);
+    
         return response()->json([
-            'data' => $activeUsers,
+            'data' => $users->items(),
+            'totalCount' => $totalCount,
             'currentPage' => $users->currentPage(),
             'lastPage' => $users->lastPage()
         ]);
     }
 
-//     public function index(User $user)
-// {
-//     $this->user = $user;
-
-//     foreach ($this->filters() as $name => $value) {
-//         if (method_exists($this, $name)) {
-//             call_user_func_array([$this, $name], array_filter([$value]));
-//         }
-//     }
-
-//     return $this->$user;
-// }
 
     public function store(Request $request): JsonResponse
     {   
