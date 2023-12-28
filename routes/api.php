@@ -81,9 +81,9 @@ Route::prefix('v1')->name('v1')->middleware('jwt:admin,student')->group(function
         Route::get('themes/{theme}/course', [ThemeController::class, 'getCourse'])->name('themes.course');
         
         // Courses
-        Route::get('courses/{course}/themes', [CourseController::class, 'getThemes'])->name('corses.themes');
-        Route::get('courses', [CourseController::class, 'index'])->name('corses.index');
-        Route::get('courses/{course}', [CourseController::class, 'show'])->name('corses.getCourse');
+        Route::get('courses/{course}/themes', [CourseController::class, 'getThemes'])->name('corses.themes')->withoutMiddleware('jwt:admin,student');;
+        Route::get('courses', [CourseController::class, 'index'])->name('corses.index')->withoutMiddleware('jwt:admin,student');;
+        Route::get('courses/{course}', [CourseController::class, 'show'])->name('corses.getCourse')->withoutMiddleware('jwt:admin,student');;
         Route::post('courses', [CourseController::class, 'store'])->middleware('jwt:admin')->name('corses.store');
         Route::post('courses/{course}', [CourseController::class, 'update'])->middleware('jwt:admin')->name('corses.update');
         Route::delete('courses/{course}', [CourseController::class, 'destroy'])->middleware('jwt:admin')->name('corses.destroy');

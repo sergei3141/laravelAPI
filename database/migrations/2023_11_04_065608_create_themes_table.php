@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('cw')->nullable();
             $table->string('pptx')->nullable();
             $table->string('docx')->nullable();
+            $table->string('project')->nullable();
             $table->timestamps();
         });
     }

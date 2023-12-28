@@ -19,6 +19,7 @@ class Theme extends Model
         'cw',
         'pptx',
         'docx',
+        'project'
     ];
 
     public function course(): BelongsTo
