@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('exercises', function (Blueprint $table) {
             $table->id();
+            $table->integer('number')->unique();
             $table->string('tag')->nullable();
             $table->string('rank')->nullable();
             $table->string('link')->nullable();

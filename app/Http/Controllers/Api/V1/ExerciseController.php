@@ -9,11 +9,17 @@ use Illuminate\Http\JsonResponse;
 
 class ExerciseController extends Controller
 {
+    // public function index()
+    // {
+    //     $table = Exercise::all();
+    //     return response()->json(['status' => 200, 'data' => $table]);
+    // }
+
     public function index()
-    {
-        $table = Exercise::all();
-        return response()->json(['status' => 200, 'data' => $table]);
-    }
+{
+    $table = Exercise::orderBy('number', 'asc')->get();
+    return response()->json(['status' => 200, 'data' => $table]);
+}
 
     public function show(Exercise $exercise)
     {

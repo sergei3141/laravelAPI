@@ -11,6 +11,7 @@ class Exercise extends Model
 
 protected $fillable = [
     'tag',
+    'number',
     'rank',
     'link',
     'tests',
