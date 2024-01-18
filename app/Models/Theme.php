@@ -17,6 +17,7 @@ class Theme extends Model
         'lesson_num',
         'hw',
         'cw',
+        'comments',
         'pptx',
         'docx',
         'project'

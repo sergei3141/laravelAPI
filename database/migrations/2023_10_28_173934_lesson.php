@@ -19,8 +19,10 @@ return new class extends Migration
             $table->integer('lesson_num')->nullable();
             $table->text('theme');
             $table->text('marks');
-            $table->text('cw')->nullable();;
-            $table->text('hw')->nullable();;
+            $table->text('cw')->nullable();
+            $table->text('hw')->nullable();
+            $table->text('comments')->nullable();
+            $table->text('pptx')->nullable();
             $table->date('date')->nullable();
             $table->timestamps();
         });

@@ -18,8 +18,10 @@ class Lesson extends Model
         'lesson_num',
         'hw',
         'cw',
+        'comments',
         'group',
         'theme',
+        'pptx',
     ];
 
     protected $hidden = [

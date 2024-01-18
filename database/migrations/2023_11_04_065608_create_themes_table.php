@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('lesson_num')->nullable();
             $table->string('hw')->nullable();
             $table->string('cw')->nullable();
+            $table->string('comments')->nullable();
             $table->string('pptx')->nullable();
             $table->string('docx')->nullable();
             $table->string('project')->nullable();
