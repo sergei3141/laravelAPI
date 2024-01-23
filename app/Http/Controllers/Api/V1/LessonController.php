@@ -52,9 +52,9 @@ class LessonController extends Controller
 
 
 
-    public function update(Request $request)
+    public function update(Lesson $lesson, Request $request)
     {
-        $lesson = Lesson::create($request->all());
+        $lesson->update($request->all());
         return response()->json($lesson);
     }
 

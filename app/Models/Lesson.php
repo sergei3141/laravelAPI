@@ -22,6 +22,7 @@ class Lesson extends Model
         'group',
         'theme',
         'pptx',
+        'date'
     ];
 
     protected $hidden = [
